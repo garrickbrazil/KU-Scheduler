@@ -1161,7 +1161,7 @@ public class MainApplication extends JPanel implements ActionListener{
 
         // Set up window
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		JFrame frame = new JFrame("KU Scheduler Beta");
+		JFrame frame = new JFrame("KU Scheduler Beta v0.1.1");
         frame.setMaximizedBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(960, 720);
