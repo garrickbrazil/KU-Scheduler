@@ -782,7 +782,7 @@ public class MainApplication extends JPanel implements ActionListener{
 			    	
 			    	// Make popup menu and two options
 			    	JPopupMenu menu = new JPopupMenu();	                
-			    	JMenuItem preInfoI = new JMenuItem("Prerequisite");
+			    	JMenuItem preInfoI = new JMenuItem("Description");
 			    	JMenuItem addI = new JMenuItem("Add");
 	                
 			    	preInfoI.addActionListener(new ActionListener() {
@@ -793,7 +793,7 @@ public class MainApplication extends JPanel implements ActionListener{
 	                        String courseID = scheduler.getCourseIDs().get(index);
 	                    	String preInfo = scheduler.getPreInfo(courseID);
 	                    	JOptionPane.showOptionDialog(MainApplication.this,
-	                    			"<html><body><p style='width: 250px;'>" + preInfo + "</body></html>", courseID + " Prerequisite Information", 
+	                    			"<html><body><p style='width: 250px;'>" + preInfo + "</body></html>", courseID + " Description Information", 
 		                			JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);	                    	
 	                    }
 	                });
@@ -940,7 +940,7 @@ public class MainApplication extends JPanel implements ActionListener{
 			    	// Make popup menu and two options
 			    	JPopupMenu menu = new JPopupMenu();	                
 			    	JMenuItem configI = new JMenuItem("Configure");
-			    	JMenuItem preInfoI = new JMenuItem("Prerequisite");
+			    	JMenuItem preInfoI = new JMenuItem("Description");
 			    	JMenuItem deleteI = new JMenuItem("Delete");
 	                
 			    	preInfoI.addActionListener(new ActionListener() {
@@ -951,7 +951,7 @@ public class MainApplication extends JPanel implements ActionListener{
 	                        String courseID = scheduler.getCurrentCourseList().get(index);
 	                    	String preInfo = scheduler.getPreInfo(courseID);
 	                    	JOptionPane.showOptionDialog(MainApplication.this,
-	                    			"<html><body><p style='width: 250px;'>" + preInfo + "</body></html>", courseID + " Prerequisite Information", 
+	                    			"<html><body><p style='width: 250px;'>" + preInfo + "</body></html>", courseID + " Description Information", 
 		                			JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);	                    	
 	                    }
 	                });

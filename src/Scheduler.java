@@ -205,6 +205,7 @@ public class Scheduler implements Serializable {
 									
 									// Simply add the course
 									this.catalog.get(courseID).add(currentCourse);
+								}
 							}							
 						}
 						
@@ -224,11 +225,10 @@ public class Scheduler implements Serializable {
 							time = e.get(9).text();
 							instructor = e.get(13).text(); 
 							room = e.get(15).text();
-							
+
 							Meeting currentSub = new Meeting(currentCourse, time,days,location,instructor, room, currentCourse.getMeetings().size());
 							currentCourse.getMeetings().add(currentSub);
 						}
-					}
 						
 						
 				}	
@@ -449,12 +449,13 @@ public class Scheduler implements Serializable {
 			
 			// Create client
 			DefaultHttpClient client = new DefaultHttpClient();
-		
-			HttpPost termPage = new HttpPost("https://sail.oakland.edu/PROD/bwckctlg.p_display_courses?term_in=" + termIn + "&one_subj=" + courseSubject + "&sel_crse_strt="+ courseNumber + "&sel_crse_end=" + courseNumber + "&sel_subj=&sel_levl=&sel_schd=&sel_coll=&sel_divs=&sel_dept=&sel_attr=");
-			termPage.setHeader("Referer", "https://sail.oakland.edu/PROD/twbkwbis.P_WWWLogin");
+			String url = "http://jweb.kettering.edu/cku1/bwckctlg.p_display_courses?term_in=" + termIn + "&one_subj=" + courseSubject + "&sel_crse_strt="+ courseNumber + "&sel_crse_end=" + courseNumber + "&sel_subj=&sel_levl=&sel_schd=&sel_coll=&sel_divs=&sel_dept=&sel_attr=";
+			
+			HttpGet termPage = new HttpGet(url);
+			termPage.setHeader("Referer", "http://jweb.kettering.edu/cku1/twbkwbis.P_WWWLogin");
 			HttpResponse response = client.execute(termPage);
 			
-			Elements mainContainer = Jsoup.parse(response.getEntity().getContent(), "UTF-8", "https://sail.oakland.edu").getElementsByClass("datadisplaytable");
+			Elements mainContainer = Jsoup.parse(response.getEntity().getContent(), "UTF-8", "https://jweb.kettering.edu").getElementsByClass("datadisplaytable");
 			
 			if(mainContainer.size() > 0 && mainContainer.get(0).getElementsByClass("ntdefault").size() > 0
 					&& mainContainer.get(0).getElementsByClass("ntdefault").get(0).textNodes().size() > 0){
@@ -462,16 +463,10 @@ public class Scheduler implements Serializable {
 				// Return first text node (prereq info)
 				String infoBlock = mainContainer.get(0).getElementsByClass("ntdefault").get(0).textNodes().get(0).text();
 				
-				if(infoBlock.contains("Prerequisite: ")){
-				
-					return infoBlock.split("Prerequisite: ")[infoBlock.split("Prerequisite: ").length - 1]; 
-				}
-				else if(infoBlock.contains("Prerequisite(s): ")){
-					return infoBlock.split("Prerequisite: ")[infoBlock.split("Prerequisite: ").length - 1];
-				}				
+				return infoBlock;			
 			}
 		}
-		catch(Exception e){}
+		catch(Exception e){e.printStackTrace();}
 		
 		return html;
 	}	
